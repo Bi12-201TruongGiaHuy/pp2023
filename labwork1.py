@@ -1,72 +1,50 @@
-stu = {} 
-courses = {} 
-points = {} 
+Student = {}
+Course = {}
+Marks = {}
 
-def student():
-    n_stu = int(input("Enter the number of students:"))
-    for i in range(n_stu):
-        stu_id = input("Enter stu id: ")
-        stu_name = input("Enter stu name: ")
-        stu_DoB = input("Enter stu DoB: ")
-        stu[stu_id]= {'name': stu_name, 'DoB': stu_DoB}
 
-def course():
-    n_courses = int(input("Enter the number of the courses: "))
-    for i in range(n_courses):
-        courses_id = input("Enter courses id: ")
-        courses_name = input("Enter courses name: ")
-        courses[courses_id]= {'name': courses_name}
+def Input_information():
+    Number_Student = int(input("Number of student in class:"))
+    for i in range(Number_Student):
+        Student_ID = input("Student ID:")
+        Student_Name = input("Student name:")
+        Student_DoB = input("Student DoB:")
+        Student[Student_ID] = {'name': Student_Name, 'DoB': Student_DoB}
+        Number_Course = int(input("Number of course:"))
+    for i in range(Number_Course):
+        Course_ID = input("Course ID: ")
+        Course_Name = input("Course name: ")
+        Course[Course_ID] = {'name': Course_Name}
 
-def pointss():
-    courses_id = input("Enter the course id: ")
-    if courses_id not in courses:
-        print("Not found")
-        return
-    for stu_id in stu:
-        point = int(input(f"Enter the point for {stu[stu_id]['name']}: "))
-        if stu_id not in points:
-            points[stu_id] = {}
-        points[stu_id][courses_id] = point
 
-def l_courses():
-    for courses_id in courses:
-        print(f"(courses_id: {courses[courses_id]['name']})")
+def Input_Show_Marks():
+    Course_ID = input("Enter Course ID:")
+    for Student_ID in Student:
+        Mark = int(input(f"Enter marks for {Student[Student_ID]['name']}: "))
+        if Student_ID not in Marks:
+            Marks[Student_ID] = {}
+        elif Student_ID in Marks and Course_ID in Marks[Student_ID]:
+            print(f"Student: {Student[Student_ID]['name']}: {Marks[Student_ID][Course_ID]}")
+        Marks[Student_ID][Course_ID] = Mark
 
-def l_student():
-    for stu_id in stu:
-        print(f"(students_id: {stu[stu_id]['name']})")
 
-def show_point():
-    courses_id = input("Enter the courses id: ")
-    if courses_id not in courses:
-        print("Not found")
-        return
-    for stu_id in stu:
-        if stu_id in points and courses_id in points[stu_id]:
-            print(f"(students_id: {stu[stu_id]['name']}: {points[stu_id][courses_id]}")
-        else:
-            print(f"{stu[stu_id]['name']}: Not found")
+Input_information()
 
-student()
-course()
 
-while True:
-    print("Select: ")
-    print("1.Input point of a course")
-    print("2.List courses")
-    print("3.List Students")
-    print("4.student point of the given courses")
-    print("5.End")
-    choice = input("Enter your choice: ")
-    if choice == "1":
-        pointss()
-    elif choice == "2":
-        l_courses()
-    elif choice == "3":
-        l_student()
-    elif choice == "4":
-        show_point()
-    elif choice == "5":
-        break
+def Option():
+    print("Select:\n","1.Enter Marks And Show Student Marks:\n","2.Student List\n","3.Course List:\n","4.Student Marks:\n")
+    Choice = input("Make Choice:")
+    if Choice == "1":
+        Input_Show_Marks()
+    elif Choice == "2":
+        for Course_ID in Course:
+            print(f"(courses: {Course[Course_ID]['name']})")
+    elif Choice == "3":
+        for Student_ID in Student:
+            print(f"Student: {Student[Student_ID]['name']}")
+    elif Choice == "4":
+        exit()
     else:
-        print("Invalid")
+        print("please try again")
+
+Option()
